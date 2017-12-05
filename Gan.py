@@ -152,8 +152,11 @@ class Gan(object):
         opti_G = tf.train.AdamOptimizer(learning_rate=self.learning_rate_gen, beta1=0.5).minimize(self.G_fake_loss, var_list=self.g_vars)
 
         init = tf.global_variables_initializer()
+        
+        run_config = tf.ConfigProto()
+        run_config.gpu_options.allow_growth=True
 
-        with tf.Session() as sess:
+        with tf.Session(config=run_config) as sess:
 
             sess.run(init)
 
